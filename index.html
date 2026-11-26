@@ -285,7 +285,7 @@ footer a{color:#f2f2f2}
   <h3 id="done-t">Заявка принята!</h3>
   <p>Чтобы закрепить место, внеси предоплату 50%: <b>1700 динар</b> или <b>1500 ₽</b>.</p>
   <p>Напиши мне в Telegram, пришлю реквизиты для перевода.</p>
-  <a class="btn" id="tg" href="https://t.me/" target="_blank" rel="noopener">Написать в Telegram</a>
+  <a class="btn" id="tg" href="https://t.me/ri_vavr" target="_blank" rel="noopener">Написать в Telegram</a>
  </div>
 </div>
 
@@ -293,7 +293,7 @@ footer a{color:#f2f2f2}
  <div class="wrap"><span>календарик «Надежда» · Рита Вавржина</span><a href="https://www.instagram.com/ri.vavr/">Instagram @ri.vavr</a></div>
 </footer>
 
-<script src="settings.js"></script>
+<script src="settings.js?v=4"></script>
 <script>
 {
  const S = window.SETTINGS || {};
@@ -310,9 +310,10 @@ footer a{color:#f2f2f2}
  document.getElementById('prev').addEventListener('click', () => step(-1));
  document.getElementById('next').addEventListener('click', () => step(1));
  rail.addEventListener('keydown', e => { if (e.key === 'ArrowRight') step(1); if (e.key === 'ArrowLeft') step(-1); });
- const TG = String(S.telegram || '').replace(/^@/, '').trim();
+ const TG = String(S.telegram || 'ri_vavr').replace(/^@/, '').trim();
+ const MSG = 'Привет! Оставил(а) заявку на календарик «Надежда». Пришли, пожалуйста, реквизиты для предоплаты.';
  const tg = document.getElementById('tg');
- if (TG && /^[A-Za-z0-9_]{4,32}$/.test(TG)) tg.href = 'https://t.me/' + TG;
+ if (/^[A-Za-z0-9_]{4,32}$/.test(TG)) tg.href = 'https://t.me/' + TG + '?text=' + encodeURIComponent(MSG);
  const done = document.getElementById('done');
  const openDone = () => { done.classList.add('open'); tg.focus(); };
  const closeDone = () => done.classList.remove('open');
