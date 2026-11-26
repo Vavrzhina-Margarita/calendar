@@ -118,6 +118,19 @@ form .btn{margin-top:4px;justify-self:start}
 .fine{font-size:14px;color:var(--mute)}
 #status{min-height:1.5em;font-size:15px}
 
+
+/* окно после заявки */
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.55);display:none;align-items:center;justify-content:center;padding:16px;z-index:10}
+.modal.open{display:flex}
+.box{background:var(--bg);color:var(--ink);border-radius:8px;max-width:440px;width:100%;padding:clamp(24px,4vw,36px);position:relative;box-shadow:0 20px 60px rgba(0,0,0,.35)}
+.box .ok{width:56px;height:56px;border-radius:50%;background:var(--red);display:grid;place-items:center;margin-bottom:18px}
+.box h3{font:600 28px/1.1 "Tilda Sans",Inter,sans-serif;letter-spacing:-.02em;margin:0 0 12px}
+.box p{margin:0 0 10px;color:var(--mute)}
+.box p b{color:var(--ink);white-space:nowrap}
+.box .btn{margin-top:14px;width:100%}
+.box .close{position:absolute;top:10px;right:10px;width:44px;height:44px;border:0;background:transparent;color:var(--mute);font-size:26px;cursor:pointer;border-radius:50%}
+.box .close:focus-visible{outline:3px solid var(--red)}
+
 footer{background:var(--cover);color:#9a9a9a;font-size:14px}
 footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
 footer a{color:#f2f2f2}
@@ -219,7 +232,7 @@ footer a{color:#f2f2f2}
    <h2>Как это работает</h2>
    <ol class="steps">
     <li><div><b>Оставь заявку до 1 февраля 2027</b><span>Форма ниже, это минута.</span></div></li>
-    <li><div><b>Внеси предоплату 50%: 1700 динар или 1500 ₽</b><span>Она закрепляет твоё место, счётчик выше показывает, сколько мест занято.</span></div></li>
+    <li><div><b>Внеси предоплату 50%: 1700 динар или 1500 ₽</b><span>Реквизиты пришлю в Telegram. Предоплата закрепляет твоё место в счётчике выше.</span></div></li>
     <li><div><b>Наберётся 30 человек — печать точно будет</b><span>После 1 февраля напишу каждому, и ты доплачиваешь остальное.</span></div></li>
     <li><div><b>Отправляю в печать и передаю календари</b><span>Лично в Белграде или почтой.</span></div></li>
     <li><div><b>Если к 1 февраля наберётся меньше 30 — верну предоплату полностью</b><span>Без вопросов и без удержаний.</span></div></li>
@@ -240,7 +253,7 @@ footer a{color:#f2f2f2}
  <div class="wrap formgrid">
   <div>
    <h2>Записаться в партию</h2>
-   <p>После заявки напишу тебе лично: подтвержу место и расскажу, как внести предоплату.</p>
+   <p>После заявки появится ссылка на мой Telegram: напиши мне, и я пришлю реквизиты для предоплаты.</p>
   </div>
   <form id="f" action="https://formspree.io/f/xyewoazn" method="POST" novalidate>
    <input type="hidden" name="_subject" value="Новая заявка на календарик">
@@ -264,6 +277,18 @@ footer a{color:#f2f2f2}
  </div>
 </section>
 
+
+<div class="modal" id="done" role="dialog" aria-modal="true" aria-labelledby="done-t">
+ <div class="box">
+  <button class="close" type="button" id="done-x" aria-label="Закрыть">×</button>
+  <div class="ok" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+  <h3 id="done-t">Заявка принята!</h3>
+  <p>Чтобы закрепить место, внеси предоплату 50%: <b>1700 динар</b> или <b>1500 ₽</b>.</p>
+  <p>Напиши мне в Telegram, пришлю реквизиты для перевода.</p>
+  <a class="btn" id="tg" href="https://t.me/" target="_blank" rel="noopener">Написать в Telegram</a>
+ </div>
+</div>
+
 <footer class="band">
  <div class="wrap"><span>календарик «Надежда» · Рита Вавржина</span><a href="https://www.instagram.com/ri.vavr/">Instagram @ri.vavr</a></div>
 </footer>
@@ -285,6 +310,15 @@ footer a{color:#f2f2f2}
  document.getElementById('prev').addEventListener('click', () => step(-1));
  document.getElementById('next').addEventListener('click', () => step(1));
  rail.addEventListener('keydown', e => { if (e.key === 'ArrowRight') step(1); if (e.key === 'ArrowLeft') step(-1); });
+ const TG = String(S.telegram || '').replace(/^@/, '').trim();
+ const tg = document.getElementById('tg');
+ if (TG && /^[A-Za-z0-9_]{4,32}$/.test(TG)) tg.href = 'https://t.me/' + TG;
+ const done = document.getElementById('done');
+ const openDone = () => { done.classList.add('open'); tg.focus(); };
+ const closeDone = () => done.classList.remove('open');
+ document.getElementById('done-x').addEventListener('click', closeDone);
+ done.addEventListener('click', e => { if (e.target === done) closeDone(); });
+ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDone(); });
  const f = document.getElementById('f');
  const st = document.getElementById('status');
  f.addEventListener('submit', e => {
@@ -297,7 +331,8 @@ footer a{color:#f2f2f2}
      .then(r => {
        if (!r.ok) throw new Error();
        f.reset();
-       st.textContent = 'Готово! Заявка у меня, скоро напишу тебе и расскажу про предоплату.';
+       st.textContent = 'Готово! Заявка у меня.';
+       openDone();
      })
      .catch(() => { st.textContent = 'Не получилось отправить. Напиши мне в Instagram @ri.vavr, и я запишу тебя вручную.'; })
      .finally(() => { btn.disabled = false; });

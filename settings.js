@@ -8,5 +8,8 @@ window.SETTINGS = {
   guaranteed: 30,
 
   // Сколько мест в партии (цель)
-  total: 50
+  total: 50,
+
+  // Твой ник в Telegram (без @) — сюда люди пишут за реквизитами
+  telegram: "ri_vavr"
 };
