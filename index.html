@@ -57,6 +57,10 @@ img{max-width:100%;display:block}
 .dot{aspect-ratio:1;border:1.5px solid var(--line);border-radius:50%;display:grid;place-items:center;font:600 clamp(11px,1.3vw,14px)/1 "Tilda Sans",sans-serif;color:var(--mute)}
 .dot.on{background:var(--red);border-color:var(--red);color:#fff}
 .dot.next{border-color:var(--ink);color:var(--ink)}
+.dot.goal{border:2px solid var(--red);color:var(--red)}
+.dot.goal.on{color:#fff}
+.legend{grid-column:1/-1;font-size:14px;color:var(--mute);margin:8px 0 0}
+.legend i{display:inline-block;width:14px;height:14px;border:2px solid var(--red);border-radius:50%;vertical-align:-2px;margin-right:6px}
 
 /* что внутри */
 .inside{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(24px,4vw,56px);align-items:start}
@@ -142,7 +146,7 @@ footer a{color:#f2f2f2}
   </div>
   <div class="hero">
    <div>
-    <h1>Календарик «Надежда» на каждый день. Новая партия будет цветной</h1>
+    <h1>Календарик «Надежда» на каждый день. Собираю новую партию</h1>
     <p class="lead">Отрывной календарь на год с марта 2027. На каждый день — цитата и маленькое лёгкое задание. Висит на красной нитке.</p>
     <div class="facts">
      <div><b>3400 динар</b>в Сербии</div>
@@ -160,7 +164,7 @@ footer a{color:#f2f2f2}
  <div class="wrap count">
   <div>
    <h2 id="cnt" class="big"><span id="taken">0</span> из <span id="total">50</span></h2>
-   <p>Столько человек уже внесли предоплату. Цветной тираж типография печатает от 50 штук: наберётся 50 — запускаю печать. Позови друга, так быстрее.</p>
+   <p>Столько человек уже внесли предоплату. Наберётся 30 — печать точно будет, а цель — 50. Позови друга, так быстрее.</p>
   </div>
   <div class="dots" id="dots" role="img" aria-label="Занятые места в партии"></div>
  </div>
@@ -178,7 +182,7 @@ footer a{color:#f2f2f2}
    <ul>
     <li>Цитата на день и мини-задание, которое занимает пару минут</li>
     <li>Год начинается с марта, а не с января: можно начать свой личный год</li>
-    <li>Обложка-подставка и красная нитка, чтобы повесить на стену</li>
+    <li>Плотная обложка и красная нитка, чтобы повесить на стену</li>
    </ul>
    <div class="note">Привет, мой самый лучший друг! Ну что, готов начать свой личный год? А я буду рядом и помогу тебе в этом. Здесь ты найдёшь не только цитаты знаменитостей, но и небольшие мини-задания. Не переживай — они лёгкие. Я с тобой.
     <small>Так начинается календарик</small></div>
@@ -215,10 +219,10 @@ footer a{color:#f2f2f2}
    <h2>Как это работает</h2>
    <ol class="steps">
     <li><div><b>Оставь заявку до 1 февраля 2027</b><span>Форма ниже, это минута.</span></div></li>
-    <li><div><b>Внеси предоплату 20%: 680 динар или 600 ₽</b><span>Она закрепляет твоё место, счётчик выше показывает, сколько мест занято.</span></div></li>
-    <li><div><b>Наберётся 50 человек — доплачиваешь остальное</b><span>Напишу каждому, когда партия соберётся.</span></div></li>
+    <li><div><b>Внеси предоплату 50%: 1700 динар или 1500 ₽</b><span>Она закрепляет твоё место, счётчик выше показывает, сколько мест занято.</span></div></li>
+    <li><div><b>Наберётся 30 человек — печать точно будет</b><span>После 1 февраля напишу каждому, и ты доплачиваешь остальное.</span></div></li>
     <li><div><b>Отправляю в печать и передаю календари</b><span>Лично в Белграде или почтой.</span></div></li>
-    <li><div><b>Не наберётся 50 к 1 февраля — верну предоплату полностью</b><span>Без вопросов и без удержаний.</span></div></li>
+    <li><div><b>Если к 1 февраля наберётся меньше 30 — верну предоплату полностью</b><span>Без вопросов и без удержаний.</span></div></li>
    </ol>
   </div>
   <div>
@@ -226,7 +230,7 @@ footer a{color:#f2f2f2}
    <div class="price">
     <div class="row"><span>Сербия</span><span class="v">3400 динар</span><span class="s">В Белграде можно забрать у меня лично или получить почтой. По Сербии — почтой, доставку оплачивает покупатель.</span></div>
     <div class="row"><span>Россия</span><span class="v">3000 ₽</span><span class="s">Без доставки. Отправляю почтой, доставку оплачивает покупатель.</span></div>
-    <div class="row"><span>Предоплата</span><span class="v">20%</span><span class="s">680 динар или 600 ₽. Остальное — когда наберётся 50 человек, до печати. Не наберётся — верну всю сумму.</span></div>
+    <div class="row"><span>Предоплата</span><span class="v">50%</span><span class="s">1700 динар или 1500 ₽. Остальное — после 1 февраля, до печати. Если наберётся меньше 30 человек, верну всю сумму.</span></div>
    </div>
   </div>
  </div>
@@ -255,7 +259,7 @@ footer a{color:#f2f2f2}
    </div>
    <button class="btn" type="submit">Записаться</button>
    <p id="status" role="status" aria-live="polite"></p>
-   <p class="fine">Место закрепляется после предоплаты. Если к 1 февраля 2027 не наберётся 50 человек, предоплата возвращается полностью.</p>
+   <p class="fine">Место закрепляется после предоплаты. Если к 1 февраля 2027 наберётся меньше 30 человек, предоплата возвращается полностью.</p>
   </form>
  </div>
 </section>
@@ -270,10 +274,11 @@ footer a{color:#f2f2f2}
  const S = window.SETTINGS || {};
  const TOTAL = Number(S.total) || 50;
  const TAKEN = Math.min(Number(S.taken) || 0, TOTAL);
+ const SURE = Number(S.guaranteed) || 30;
  document.getElementById('taken').textContent = TAKEN;
  document.getElementById('total').textContent = TOTAL;
  document.getElementById('dots').innerHTML = Array.from({length: TOTAL}, (_, i) =>
-   '<span class="dot ' + (i < TAKEN ? 'on' : (i === TAKEN ? 'next' : 'free')) + '" style="animation-delay:' + (i * 25) + 'ms">' + (i + 1) + '</span>').join('');
+   '<span class="dot ' + (i < TAKEN ? 'on' : (i === TAKEN ? 'next' : 'free')) + (i === SURE - 1 ? ' goal' : '') + '" style="animation-delay:' + (i * 25) + 'ms">' + (i + 1) + '</span>').join('') + '<p class="legend"><i></i>С ' + SURE + '-м человеком печать точно будет</p>';
 
  const rail = document.getElementById('rail');
  const step = d => rail.scrollBy({left: d * (rail.firstElementChild.offsetWidth + 14), behavior: 'smooth'});
